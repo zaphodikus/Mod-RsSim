@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7690E3EF-B981-43F5-A13D-A7C70A56C000}</ProjectGuid>
+    <RootNamespace>mod_RSsim</RootNamespace>
+    <Keyword>MFCProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>Dynamic</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>15.0.27625.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Debug\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Release/mod_RSsim.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <ClCompile>
+      <Optimization>MinSpace</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);WINVER=0x0603</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>.\Release/mod_RSsim.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
+      <ObjectFileName>.\Release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
+      <BrowseInformation>true</BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>wsock32.lib;..\mylib\release\mylib.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Release/mod_RSsim.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <ProgramDatabaseFile>.\Release/mod_RSsim.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release/mod_RSsim.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Debug/mod_RSsim.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);WINVER=0x0603</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>.\Debug/mod_RSsim.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
+      <BrowseInformation>true</BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>wsock32.lib;..\mylib\debug\mylib.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Debug/mod_RSsim.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\Debug/mod_RSsim.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug/mod_RSsim.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="ABComms.cpp" />
+    <ClCompile Include="ABCommsProcessor.cpp" />
+    <ClCompile Include="About.cpp" />
+    <ClCompile Include="ActiveScriptHost.cpp" />
+    <ClCompile Include="AdvEmulationDlg.cpp" />
+    <ClCompile Include="AnimationSettings.cpp" />
+    <ClCompile Include="CreditStatic.cpp" />
+    <ClCompile Include="CSVFileImportDlg.cpp" />
+    <ClCompile Include="CSVReader.cpp" />
+    <ClCompile Include="DDKSocket.cpp" />
+    <ClCompile Include="DDKSrvSocket.cpp" />
+    <ClCompile Include="EasterDlg.cpp" />
+    <ClCompile Include="EditMemoryDlg.cpp" />
+    <ClCompile Include="FaultsDlg.cpp" />
+    <ClCompile Include="FileEditCtrl.cpp" />
+    <ClCompile Include="htmloutput.cpp" />
+    <ClCompile Include="JoySCCEmulation.cpp" />
+    <ClCompile Include="MemoryEditorList.cpp" />
+    <ClCompile Include="MemWriteLock.cpp" />
+    <ClCompile Include="message.cpp" />
+    <ClCompile Include="MOD232CommsProcessor.cpp" />
+    <ClCompile Include="MODEthCommsProcessor.cpp" />
+    <ClCompile Include="mod_RSsim.cpp" />
+    <ClCompile Include="mod_RSsimDlg.cpp" />
+    <ClCompile Include="MyHostProxy.cpp" />
+    <ClCompile Include="PLCApplication.cpp" />
+    <ClCompile Include="RS232Noise.cpp" />
+    <ClCompile Include="RS232Port.cpp" />
+    <ClCompile Include="SelfRegistrationDlg.cpp" />
+    <ClCompile Include="serverRS232array.cpp" />
+    <ClCompile Include="ServerSettings232Dlg.cpp" />
+    <ClCompile Include="ServerSettingsEthDlg.cpp" />
+    <ClCompile Include="ServerSocketArray.cpp" />
+    <ClCompile Include="SimCmdLine.cpp" />
+    <ClCompile Include="simport.cpp" />
+    <ClCompile Include="Splash.cpp" />
+    <ClCompile Include="StarWarsCtrl.cpp" />
+    <ClCompile Include="StdAfx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="stringcvt.cpp" />
+    <ClCompile Include="TrainingSimDlg.cpp" />
+    <ClCompile Include="UpdateCheck.cpp" />
+    <ClCompile Include="UTIL.CPP" />
+    <ClCompile Include="_README.CPP" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="mod_RSsim.odl">
+      <TargetEnvironment Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Win32</TargetEnvironment>
+      <TargetEnvironment Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Win32</TargetEnvironment>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ABCommsProcessor.h" />
+    <ClInclude Include="About.h" />
+    <ClInclude Include="ActiveScriptHost.h" />
+    <ClInclude Include="AdvEmulationDlg.h" />
+    <ClInclude Include="AnimationSettings.h" />
+    <ClInclude Include="CreditStatic.h" />
+    <ClInclude Include="CSVFileImportDlg.h" />
+    <ClInclude Include="CSVReader.h" />
+    <ClInclude Include="DDKSocket.h" />
+    <ClInclude Include="DDKSrvSocket.h" />
+    <ClInclude Include="DiagnosticsMemFile.h" />
+    <ClInclude Include="EasterDlg.h" />
+    <ClInclude Include="EditMemoryDlg.h" />
+    <ClInclude Include="FaultsDlg.h" />
+    <ClInclude Include="FileEditCtrl.h" />
+    <ClInclude Include="HtmlOutput.h" />
+    <ClInclude Include="JoySCCEmulation.h" />
+    <ClInclude Include="MemoryEditorList.h" />
+    <ClInclude Include="MemWriteLock.h" />
+    <ClInclude Include="message.h" />
+    <ClInclude Include="MOD232CommsProcessor.h" />
+    <ClInclude Include="MODCommsProcessor.h" />
+    <ClInclude Include="MODEthCommsProcessor.h" />
+    <ClInclude Include="mod_RSsim.h" />
+    <ClInclude Include="mod_RSsimDlg.h" />
+    <ClInclude Include="MyHostProxy.h" />
+    <ClInclude Include="plantsim.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="RS232Noise.h" />
+    <ClInclude Include="RS232Port.h" />
+    <ClInclude Include="SelfRegistrationDlg.h" />
+    <ClInclude Include="serverRS232array.h" />
+    <ClInclude Include="ServerSettings232Dlg.h" />
+    <ClInclude Include="ServerSettingsEthDlg.h" />
+    <ClInclude Include="ServerSocketArray.h" />
+    <ClInclude Include="SimCmdLine.h" />
+    <ClInclude Include="simport.h" />
+    <ClInclude Include="Splash.h" />
+    <ClInclude Include="StarWarsCtrl.h" />
+    <ClInclude Include="StatLink.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="stringcvt.h" />
+    <ClInclude Include="TrainingSimDlg.h" />
+    <ClInclude Include="UpdateCheck.h" />
+    <ClInclude Include="util.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="help\images\advmbus.gif" />
+    <Image Include="help\images\anim.gif" />
+    <Image Include="help\images\joyshot.gif" />
+    <Image Include="help\images\juice.gif" />
+    <Image Include="help\images\portA.gif" />
+    <Image Include="help\images\shot1.gif" />
+    <Image Include="help\images\shot2.gif" />
+    <Image Include="help\images\toolbar.gif" />
+    <Image Include="res\bitmap1.bmp" />
+    <Image Include="res\bmp00001.bmp" />
+    <Image Include="res\bmp00002.bmp" />
+    <Image Include="res\bmp00003.bmp" />
+    <Image Include="res\bmp00004.bmp" />
+    <Image Include="res\bmp00005.bmp" />
+    <Image Include="res\creditbm.bmp" />
+    <Image Include="res\drag.bmp" />
+    <Image Include="res\ico00001.ico" />
+    <Image Include="res\ico00002.ico" />
+    <Image Include="res\idr_main.ico" />
+    <Image Include="res\mod_RSsim.ico" />
+    <Image Include="res\mod_RSsimul.ico" />
+    <Image Include="res\multisla.bmp" />
+    <Image Include="res\toolbar1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="help\index.htm" />
+    <None Include="myhandcu.cur" />
+    <None Include="res\cursor1.cur" />
+    <None Include="res\MOD_RSsim.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="mod_RSsim.rc">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OUTDIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OUTDIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="license.txt" />
+    <Text Include="ReadMe.txt" />
+    <Text Include="versioninfo.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="mod_RSsim.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
