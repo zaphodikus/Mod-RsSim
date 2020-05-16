@@ -34,9 +34,9 @@ private:
    friend class CCSVLineArray;
 
    public:
-      CCSVTextLine(LPCSTR string);
+      CCSVTextLine(LPCSTR string, CRegisterUpdaterIF * debuginterface);
       CCSVTextLine(CCSVTextLine& other);
-      CCSVTextLine();
+      CCSVTextLine(CRegisterUpdaterIF * debuginterface);
 
       CCSVTextLine & operator = (CCSVTextLine &otherLine);
       CCSVTextLine & operator = (CString &otherString);
@@ -47,7 +47,7 @@ private:
       void  Parse();
 
    private:
-      //double m_double;
+      CRegisterUpdaterIF * m_debugInterface;
 
       // misc variables
       BOOL     m_init;
@@ -75,7 +75,7 @@ private:
    class CCSVTextFile : public CFile
    {
    public:
-      CCSVTextFile(LPCTSTR fileName, UINT flags);
+      CCSVTextFile(LPCTSTR fileName, UINT flags, CRegisterUpdaterIF * debuginterface);
       ~CCSVTextFile();
 
       LPCTSTR Data();

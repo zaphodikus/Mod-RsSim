@@ -814,7 +814,7 @@ BEGIN
     IDS_CLOSE               "Close port"
     IDS_OPEN                "Open port"
     IDC_CSVIMPORT           "CSV Import..."
-    IDS_MSGCSVSTARTPROCESSING "Help"
+    IDS_MSGCSVSTARTPROCESSING "Importing CSV file"
 END
 
 STRINGTABLE 
@@ -886,7 +886,7 @@ END
 
 STRINGTABLE 
 BEGIN
-    IDS_MSGCSVSTARTPROCESSING_MAN "Start processing manual loaded '%s'"
+    IDS_MSGCSVSTARTPROCESSING_MAN "Start processing CSV '%s'"
     IDS_MYBLOGURL           "http://www.zaphodikusrealm.blogspot.com"
     IDS_HOMEPAGEURL         "http://www.plcsimulator.org"
 END

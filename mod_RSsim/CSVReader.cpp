@@ -35,9 +35,10 @@
 // a standard string. Then it allows you to interrogate the string which
 // is seperated CSV style.
 // --------------------------- CCSVTextLine::CCSVTextLine ------------------
-CCSVTextImporter::CCSVTextLine::CCSVTextLine(LPCSTR string) : CString (string)
+CCSVTextImporter::CCSVTextLine::CCSVTextLine(LPCSTR string, CRegisterUpdaterIF * debuginterface) : CString (string)
 {
    m_init = FALSE;
+   m_debugInterface = debuginterface;
    Parse();
 }
 
@@ -45,14 +46,17 @@ CCSVTextImporter::CCSVTextLine::CCSVTextLine(CCSVTextLine& other)
 {
    this->m_init = other.m_init;
    this->m_instrumentNum = other.m_instrumentNum;
+   this->m_debugInterface = other.m_debugInterface;
+
    memcpy(this->m_values, other.m_values, sizeof(other.m_values));
 }
 
 
 // ----------------------------------- CCSVTextLine -------------------------
-CCSVTextImporter::CCSVTextLine::CCSVTextLine() : CString ()
+CCSVTextImporter::CCSVTextLine::CCSVTextLine(CRegisterUpdaterIF * debuginterface) : CString ()
 {
    m_init = FALSE;
+   m_debugInterface = debuginterface;
 } // CCSVTextLine
 
 // ----------------------------------- GetElement ----------------------------
@@ -116,16 +120,21 @@ double * varPtr = &m_values[0];
          temp = Mid(last, next);
 
       sscanf(temp, "%lg", varPtr);
-      OutputDebugString(temp);
-      OutputDebugString(" ");
+      //OutputDebugString(temp);
+      //OutputDebugString(" ");
       last = last+next+1;
       fields++;
       varPtr++;
       if (fields > MAX_CSVFILE_COLUMNS)
       {
-         ASSERT(0);
+      CString msg("CSV format error - read docs");
+         m_debugInterface->DebugMessage(msg);
          break;  // forced break
       }
+   }
+   if (fields != MAX_CSVFILE_COLUMNS) {
+   CString msg("CSV format error - read docs");
+      m_debugInterface->DebugMessage(msg);
    }
    ASSERT(fields == MAX_CSVFILE_COLUMNS);
    OutputDebugString("\n");
@@ -140,7 +149,7 @@ double * varPtr = &m_values[0];
 // PURPOSE: read the CSV text file in in one go.
 // this class gets deleted after it has been used, in order to conserve RAM
 // the contents get copied into an array.
-CCSVTextImporter::CCSVTextFile::CCSVTextFile(LPCTSTR fileName, UINT flags) : CFile(fileName, flags)
+CCSVTextImporter::CCSVTextFile::CCSVTextFile(LPCTSTR fileName, UINT flags, CRegisterUpdaterIF * debuginterface) : CFile(fileName, flags)
 {
    m_length = (DWORD)GetLength();
    m_data = (BYTE*)malloc(m_length + 1);
@@ -238,8 +247,12 @@ LONG pos,curPos;
    myArray = new CCSVLineArray;
    TRY
    {
-      file = new CCSVTextFile(fileName, CFile::modeRead| CFile::shareDenyNone);
+      file = new CCSVTextFile(fileName, CFile::modeRead| CFile::shareDenyNone, m_parentInterface);
       data = file->Data();
+      if (((BYTE)data[0] == 0xFE) || ((BYTE)data[0] == 0x00) || ((BYTE)data[0] == 0xFF)) {
+      CString msg("Unexpected byte order mark! Importable CSV files must be plain text");
+         m_parentInterface->DebugMessage(msg);
+      }
       pos = data.Find('\n');
       if (-1 != pos)
       {
@@ -267,7 +280,7 @@ LONG pos,curPos;
             {
                // put the line into the array
                CCSVTextLine *pString;
-                  pString = new CCSVTextLine(curLine);
+                  pString = new CCSVTextLine(curLine, this->m_parentInterface);
                   //*pString = curLine;
                myArray->Add(pString);
             }
@@ -278,10 +291,10 @@ LONG pos,curPos;
    }
    CATCH (CFileException, e)
    {
-   CHAR msg[MAX_DEBUG_STR_LEN];   
+   CString msg;
 
-      sprintf(msg, "Error %d opening CSV file", e->m_cause);
-      OutputDebugString(msg);
+      msg.Format("Error %d opening CSV file \n%s", e->m_cause, fileName);
+      m_parentInterface->DebugMessage(msg);
    }
    END_CATCH
 
@@ -316,13 +329,27 @@ BOOL CCSVTextImporter::HandleTimer(LPCTSTR importFolder, CRegisterUpdaterIF *pPa
    }
 
    //Test for new CSV file
-   CString fileName;
+   CString fileName, folderName;
    SYSTEMTIME  sysTimeExpect, currentTime;
    CString fullFileName;
 
       GetLocalTime(&currentTime);
       sysTimeExpect = currentTime;
+	  // test FOLDER exists
+	  folderName.Format("%04d%02d%02d", sysTimeExpect.wYear,
+		  sysTimeExpect.wMonth,
+		  sysTimeExpect.wDay);
+	  fullFileName = importFolder;
+	  fullFileName += '\\';
+	  fullFileName += folderName;
+	  if (!ExistFile(fullFileName)) {
+		  CString msg;
+		  msg.Format("The expected CSV import folder '%s' was not found!", fullFileName);
+		  m_parentInterface->DebugMessage(msg);
+        return(false);
+	  }
 
+      // test FILE exists
       sysTimeExpect.wMinute = (sysTimeExpect.wMinute/15)*15;
       fileName.Format("%04d%02d%02d\\%02d%02d.csv", sysTimeExpect.wYear, 
                                                     sysTimeExpect.wMonth, 
@@ -423,6 +450,7 @@ LONG count=0;
       for (col = 0; col < MAX_CSVFILE_COLUMNS;col++)
       {
          registerNum = (row* CSV_REGISTERSIZE* MAX_CSVFILE_COLUMNS)+ (CSV_REGISTERSIZE*col);
+         // TODO: - this reads in floating point data for some reason??? This needs to be settable as a flag to be normal dwords too.
          float value = (float)myArray->GetAt(row)->GetElement(col);
          DWORD lowhigh;
          float*pFloatValue;
