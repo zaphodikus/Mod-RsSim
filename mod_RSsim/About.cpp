@@ -65,6 +65,9 @@ char *pArrCreditPre = { "MOD_RSSIM Version %s\t||"
 /////////////////////////////////////////////////////////////////////////////
 // CRegistrationTest 'nag-screen'
 //
+
+BOOL CRegistrationTest::m_closed = TRUE;
+
 CRegistrationTest::CRegistrationTest()
 {
    m_registeredOK = FALSE;
@@ -120,10 +123,10 @@ BOOL CRegistrationTest::CheckRegistrationKey(LPCTSTR name, LPCTSTR key)
 
 // ----------------------------------- RegistrationReminder --------------------------
 // call this regularly, if the registration has expired it will do the nagging.
-// the nag is so that you contact me, and I can trace actual prorgam useage
+// the nag is so that you contact me, and I can trace actual program useage
 void CRegistrationTest::RegistrationReminder()
 {
-   if (!m_registeredOK)
+   if (!m_registeredOK && m_closed)
    {
    BOOL expired = FALSE;
 
@@ -149,9 +152,10 @@ void CRegistrationTest::RegistrationReminder()
 // ------------------------------------ ShowRegistrationMessage --------------------------
 void CRegistrationTest::ShowRegistrationMessage()
 {
-   AfxMessageBox("This is a fully functional version of MOD-SIM but without a key; \
+   m_closed = false;
+   m_closed = MB_OK == AfxMessageBox("This is a fully functional version of MOD-SIM but without a key; \
 \nit will show this message after 45 minutes, and then just try to annoy U after that.\
-\n\nTo obtain a totally free key, see the Help-About window!", MB_ICONINFORMATION );
+\n\nTo obtain a totally free key, see the Help-About window!", MB_ICONINFORMATION|MB_OK );
 }
 
 /////////////////////////////////////////////////////////////////////////////

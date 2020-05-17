@@ -32,6 +32,7 @@
 #include "resource.h"
 #include "Creditstatic.h"
 #include "about.h"
+#include "resource.h"
 #include "TrainingSimDlg.h"
 #include "ABCommsProcessor.h"
 #include "JoySCCEmulation.h"
@@ -1281,6 +1282,7 @@ DWORD animationType;
    // Vinay
    m_importFolder = "CSVdata";
    m_logFileName = "csreport.log";
+   m_csvFormat.LoadStringA(IDS_CSVFORMAT_FLOAT64);
    m_csvImportEnable = FALSE;
 
    //////////////////////////////////////////////////
@@ -1385,6 +1387,7 @@ DWORD animationType;
    key.QueryValue("CSVImportFolder", m_importFolder);
    key.QueryValue("CSVImportLogName", m_logFileName);
    key.QueryValue("CSVImportEnable", &m_csvImportEnable);
+   key.QueryValue("CsvImporterFormat", m_csvFormat);
 
 
 } // LoadApplicationSettings
@@ -1480,6 +1483,7 @@ DWORD animationType;
    key.SetValue("CSVImportFolder", m_importFolder);
    key.SetValue("CSVImportLogName", m_logFileName);
    key.SetValue("CSVImportEnable", m_csvImportEnable);
+   key.SetValue("CsvImporterFormat", m_csvFormat);
 
 } // SaveApplicationSettings
 
@@ -1850,7 +1854,7 @@ static DWORD   lastTickCountOut=0, tickCount;
 
    if (0==tickerCount%5)
    {
-      // if not registered ,then a Dialog appears
+      // if not registered and dialog is not visible, then a Dialog appears
       m_registration.RegistrationReminder();
 
       firstVisibleStation = GetFirstVisibleStation();
@@ -4234,6 +4238,7 @@ CCSVFileImportDlg dlg;
    dlg.m_importFolder = m_importFolder;//"..\\CSVdata";
    dlg.m_logFileName = m_logFileName;//"..\\CSVData\\csreport.log";
    dlg.m_csvImportEnable =  m_csvImportEnable;
+   dlg.m_CsvFormat = m_csvFormat;
    if (IDOK == dlg.DoModal())
    {
       AddCommsDebugString(dlg.m_importFolder);
@@ -4242,5 +4247,6 @@ CCSVFileImportDlg dlg;
       m_importFolder = dlg.m_importFolder;
       m_logFileName = dlg.m_logFileName;
       m_csvImportEnable =  dlg.m_csvImportEnable;
+      m_csvFormat = dlg.m_CsvFormat;
    }   
 }

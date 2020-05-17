@@ -291,6 +291,7 @@ protected:
    // Vinay
 	CString	m_importFolder;
 	CString	m_logFileName;
+   CString  m_csvFormat;
    LONG     m_csvImportEnable;
    CCSVTextImporter  m_CSVImporter;
 

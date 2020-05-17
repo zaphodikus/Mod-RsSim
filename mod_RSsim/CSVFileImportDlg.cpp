@@ -22,6 +22,7 @@
 #include "stdafx.h"
 #include "mod_rssim.h"
 #include "CSVFileImportDlg.h"
+#include "resource.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -46,27 +47,29 @@ CCSVFileImportDlg::CCSVFileImportDlg(CWnd* pParent /*=NULL*/)
 
 void CCSVFileImportDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CCSVFileImportDlg)
-	DDX_Check(pDX, IDC_IMPORTENABLED, m_csvImportEnable);
-	DDX_Text(pDX, IDC_IMPORTFOLDER, m_importFolder);
-	DDX_Text(pDX, IDC_IMPORTLOGNAME, m_logFileName);
-	//}}AFX_DATA_MAP
+   CDialog::DoDataExchange(pDX);
+   //{{AFX_DATA_MAP(CCSVFileImportDlg)
+   DDX_Check(pDX, IDC_IMPORTENABLED, m_csvImportEnable);
+   DDX_Text(pDX, IDC_IMPORTFOLDER, m_importFolder);
+   DDX_Text(pDX, IDC_IMPORTLOGNAME, m_logFileName);
+   DDX_CBStringExact(pDX, IDC_CSV_FORMAT, m_CsvFormat);
+   //}}AFX_DATA_MAP
    DDX_FileEditCtrl(pDX, IDC_IMPORTFOLDER, m_FolderEditCtrl, FEC_FOLDER);
    DDX_FileEditCtrl(pDX, IDC_IMPORTLOGNAME, m_FileEditCtrl, FEC_FILESAVEAS);
    if (pDX->m_bSaveAndValidate)
    {
-   SYSTEMTIME sysTime;
-   GetLocalTime(&sysTime);
-   CString yFolder;
-   int pos;
+      SYSTEMTIME sysTime;
+      GetLocalTime(&sysTime);
+      CString yFolder;
+      int pos;
       yFolder.Format("%04d%02d%02d", sysTime.wYear, sysTime.wMonth, sysTime.wDay);
       pos = m_importFolder.Find(yFolder);
       if (pos>1)
       {
-         m_importFolder = m_importFolder.Left(pos-1);
+         m_importFolder = m_importFolder.Left(pos - 1);
       }
    }
+   DDX_Control(pDX, IDC_CSV_FORMAT, m_CsvFormatCtrl);
 }
 
 
@@ -74,6 +77,7 @@ BEGIN_MESSAGE_MAP(CCSVFileImportDlg, CDialog)
 	//{{AFX_MSG_MAP(CCSVFileImportDlg)
 	ON_BN_CLICKED(IDC_QUICKIMPORT, OnQuickImport)
 	//}}AFX_MSG_MAP
+   ON_CBN_SELCHANGE(IDC_CSV_FORMAT, &CCSVFileImportDlg::OnCbnSelchangeCombo1)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -97,6 +101,8 @@ void CCSVFileImportDlg::OnOK()
 
      str = m_FileEditCtrl.GetNextPathName(pos);
      m_logFileName = str;
+   // new formatting control defaults to float 64 for backward compatability
+   m_CsvFormatCtrl.GetLBText(m_CsvFormatCtrl.GetCurSel(), m_CsvFormat);
 
 	CDialog::OnOK();
 }
@@ -113,6 +119,13 @@ BOOL CCSVFileImportDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 	
 	// TODO: Add extra initialization here
+   int ids[] = { IDS_CSVFORMAT_FLOAT64, IDS_CSVFORMAT_DECIMAL16 };
+   for (int i = 0; i < (sizeof(ids) / sizeof(ids[0])); i++) {
+   CString s;
+      s.LoadStringA(ids[i]);
+      m_CsvFormatCtrl.AddString(s); // _T("float (64)")); // index 0
+   }
+
    UpdateData(FALSE);
 
    CRect rect;
@@ -122,6 +135,7 @@ BOOL CCSVFileImportDlg::OnInitDialog()
 
    m_FolderEditCtrl.SetWindowText(this->m_importFolder);
    m_FileEditCtrl.SetWindowText(this->m_logFileName);
+   m_CsvFormatCtrl.SelectString(0, this->m_CsvFormat);
 
    return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
@@ -155,4 +169,10 @@ CString initialDir, fullFileName;
       }
    }
    initialDir.ReleaseBuffer();
+}
+
+
+void CCSVFileImportDlg::OnCbnSelchangeCombo1()
+{
+   // TODO: Add your control notification handler code here
 }

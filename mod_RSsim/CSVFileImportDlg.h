@@ -43,7 +43,8 @@ public:
 	BOOL	m_csvImportEnable;
 	CString	m_importFolder;
 	CString	m_logFileName;
-	//}}AFX_DATA
+   CString  m_CsvFormat;
+   //}}AFX_DATA
    CFileEditCtrl m_FileEditCtrl;
    CFileEditCtrl m_FolderEditCtrl;
 
@@ -66,6 +67,9 @@ protected:
 	afx_msg void OnQuickImport();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
+public:
+   afx_msg void OnCbnSelchangeCombo1();
+   CComboBox m_CsvFormatCtrl;
 };
 
 //{{AFX_INSERT_LOCATION}}

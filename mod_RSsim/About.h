@@ -101,6 +101,9 @@ private:
    BOOL    m_registeredOK;
    DWORD   m_registrationTimerStart;
    BOOL    m_demoPeriodEnded;
+
+public:
+   static BOOL    m_closed;
 }; // CRegistrationTest
 
 //{{AFX_INSERT_LOCATION}}

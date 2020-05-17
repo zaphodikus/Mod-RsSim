@@ -198,6 +198,7 @@
 //       8.18    27/04/10 - (ver 8.17) UAC - should now be Vista compliant, Registration dialog screen added.
 //       8.19    03/05/10 - Source cleaned up, eliminated timer/CPU starvation for animation updates updating all registers
 //       8.20    10/01/11 - COM port name UNC prefix \\.\ expanding changed to work with com0com ports with alternative naming convention
+//       8.21    17/05/20 - Fixing the CSV import background loader code, mostly added debugging.
 //
 // TODO: Settable timout for 'lost' tcp client socket recovery
 //       Allow bitswize 1/0 entry for integer values as 16-bit
@@ -216,7 +217,10 @@
 
 #include "stdafx.h"  // ha ha
 
-//const CHAR lpsMyAppVersion[10] = "8.15\0"; // moved to resource mod_rssim.rc : VS_VERSION_INFO
-// remember to update versioninfo.txt
+//const CHAR lpsMyAppVersion[10] = "8.15\0"; 
+// 1. moved to resource mod_rssim.rc : VS_VERSION_INFO
+// 3. remember to update versioninfo.txt
+
+// value is initialized at runtime using VS_VERSION_INFO
 char lpsMyAppVersion[10] = "n.n";
 

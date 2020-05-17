@@ -308,6 +308,7 @@
 #define IDB_CHECKUPDATES2               1226
 #define IDB_EDITREGISTRATION            1226
 #define IDC_REGISTRATION_KEY            1227
+#define IDC_CSV_FORMAT                  1227
 #define IDC_SHOWCOMMSTIME               1300
 #define IDB_ALPHABLEND60                32779
 #define IDB_ALPHABLEND70                32780
@@ -341,15 +342,17 @@
 #define IDH_COPYCLIP                    32800
 #define IDS_MYBLOGURL                   32801
 #define IDS_HOMEPAGEURL                 32802
+#define IDS_CSVFORMAT_FLOAT64           32803
+#define IDS_CSVFORMAT_DECIMAL16         32804
 #define IDH_SETTINGS                    57664
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        165
+#define _APS_NEXT_RESOURCE_VALUE        167
 #define _APS_NEXT_COMMAND_VALUE         32802
-#define _APS_NEXT_CONTROL_VALUE         1227
+#define _APS_NEXT_CONTROL_VALUE         1228
 #define _APS_NEXT_SYMED_VALUE           117
 #endif
 #endif
